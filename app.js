@@ -1,11 +1,16 @@
-
-`use strict`
-const express = require('express');
+`use strict`;
+const express = require("express");
 const app = express();
 
-app.get('/', (req, res) => res.send('Hello world!'))
+//parse incoming object as JSON
+app.use(express.json());
 
-const port = process.env.PORT || 3000
+app.get("/", (req, res) => {
+  res.status(200);
+  res.send("Hello world!");
+});
 
-module.exports = app
-app.listen(port, () => console.log(`Server is listening on port ${port}.`))
+const port = process.env.PORT || 3000;
+
+module.exports = app;
+app.listen(port, () => console.log(`Server is listening on port ${port}.`));
