@@ -4,15 +4,20 @@ const app = require("./app");
 
 let serverlessExpressInstance;
 
-function asyncTask() {
+function asyncTask(event) {
+  console.log("First time initialization ...");
+  console.log("ENVIRONMENT VARIABLES\n" + JSON.stringify(process.env, null, 2));
+  console.log("EVENT\n" + JSON.stringify(event, null, 2));
+
   return new Promise((resolve) => {
-    setTimeout(() => resolve("connected to database"), 1000);
+    setTimeout(() => resolve("Connected to database!"), 1000);
   });
 }
 
 async function setup(event, context) {
-  const asyncValue = await asyncTask();
+  const asyncValue = await asyncTask(event);
   console.log(asyncValue);
+
   serverlessExpressInstance = serverlessExpress({ app });
   return serverlessExpressInstance(event, context);
 }
